@@ -41,7 +41,6 @@
           <p>Astral pulls down all of your starred repositories from GitHub, and allows you to organize them using a simple tagging system.</p>
         </div>
         <div class="section-image">
-          <!-- <img src="dist/images/screen.png" alt="Astral Features Overview" /> -->
           <img src="dist/images/features-overview.png" alt="Astral Features Overview" />
         </div>
       </div>

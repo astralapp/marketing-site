@@ -541,9 +541,15 @@ header {
     .main .section .section-inner {
       display: -webkit-box;
       display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      flex-direction: row;
       margin: 0 auto;
       max-width: 1140px;
       position: relative; }
+    .main .section-overview .overview-inner {
+      display: -webkit-box;
+      display: flex; }
     .main .section-overview .section-text {
       padding: 5% 5% 0 5%;
       flex-basis: 44%; }
@@ -581,6 +587,7 @@ header {
         .main .section-features .features-item.readmes img {
           margin-left: -1.1%; }
         .main .section-features .features-item img {
+          align-self: flex-start;
           width: 20%;
           margin-bottom: 5%; }
         .main .section-features .features-item h3 {
@@ -774,10 +781,12 @@ header {
       border-right: 1px solid #e4e5e7; }
     .main .section-features .features-item:nth-child(-n+5) {
       border-bottom: 1px solid #e4e5e7; }
-  .main .section .section-inner {
+  .main .section-overview .section-inner {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     flex-direction: column; }
+    .main .section-overview .section-inner .section-text, .main .section-overview .section-inner .section-image {
+      flex-basis: auto !important; }
   .main .section-overview .section-text {
     margin: 0;
     padding: 35px 30px; }

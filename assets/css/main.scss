@@ -156,11 +156,15 @@ header {
     padding: 70px 0;
     .section-inner {
       display: flex;
+      flex-direction: row;
       margin: 0 auto;
       max-width: 1140px;
       position: relative;
     }
     &-overview {
+      .overview-inner {
+        display: flex;
+      }
       .section-text {
         padding: 5% 5% 0 5%;
         flex-basis: 44%;
@@ -207,6 +211,7 @@ header {
            }
          }
         img {
+          align-self: flex-start;
           width: 20%;
           margin-bottom: 5%;
         }
@@ -413,8 +418,11 @@ header {
     }
   }
 
-  .main .section .section-inner {
+  .main .section-overview .section-inner {
     flex-direction: column;
+    .section-text, .section-image {
+      flex-basis: auto!important;
+    }
   }
 
   .main .section-overview .section-text {
