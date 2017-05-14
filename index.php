@@ -179,6 +179,15 @@
             </div>
           </div>
 
+          <div class="testimonial">
+            <div class="testimonial-text">Oh man am I loving @astralapp - transforming the cacophony of my GitHub stars into meaningful order!</div>
+            <div class="user-info">
+              <img src="dist/images/testimonials/kidwellj.jpg" alt="Jeremy Kidwell" />
+              <span class="name">Jeremy Kidwell</span>
+              <span class="handle">@kidwellj</span>
+            </div>
+          </div>
+
         </div>
         <div class="sign-up-button-container">
           <a href="https://app.astralapp.com" class="sign-up-button">Sign Up Free</a>
