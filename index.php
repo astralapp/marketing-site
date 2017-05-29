@@ -201,10 +201,10 @@
         </div>
         <ul class="footer-nav-items">
           <li class="footer-nav-item"><a href="#">Privacy</a></li>
-          <li class="footer-nav-item"><a href="#">Twitter</a></li>
-          <li class="footer-nav-item"><a href="#">GitHub</a></li>
-          <li class="footer-nav-item"><a href="#">Contact</a></li>
-          <li class="footer-nav-item"><a href="#">Donate</a></li>
+          <li class="footer-nav-item"><a href="http://twitter.com/astralapp" target="_blank">Twitter</a></li>
+          <li class="footer-nav-item"><a href="http://github.com/astralapp/astral" target="_blank">GitHub</a></li>
+          <li class="footer-nav-item"><a href="mailto:hello@astralapp.com">Contact</a></li>
+          <li class="footer-nav-item"><a href="https://www.creatorlove.com/syropian/astral" target="_blank">Donate</a></li>
           </li>
         </ul>
       </div>
