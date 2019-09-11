@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g>
-	<path fill-rule="evenodd" clip-rule="evenodd" d="M39.831,4.112H8.748v55.775h46.505V19.532L39.831,4.112z M40.417,7.526
-		L52.12,19.229H40.417V7.526z M53.253,57.888H10.748V6.112h27.669v15.116h1h1h12.836V57.888z" fill="#ffffff"/>
-	<rect x="17.47" y="14.834" fill-rule="evenodd" clip-rule="evenodd" width="13.611" height="1.944" fill="#ffffff" />
-	<rect x="17.47" y="20.667" fill-rule="evenodd" clip-rule="evenodd" width="13.611" height="1.944" fill="#ffffff"/>
-	<rect x="17.47" y="32.334" fill-rule="evenodd" clip-rule="evenodd" width="27.223" height="1.944" fill="#ffffff"/>
-	<rect x="17.47" y="26.501" fill-rule="evenodd" clip-rule="evenodd" width="27.223" height="1.943" fill="#ffffff"/>
-	<rect x="17.47" y="38.167" fill-rule="evenodd" clip-rule="evenodd" width="27.223" height="1.945" fill="#ffffff"/>
-	<rect x="17.47" y="44.001" fill-rule="evenodd" clip-rule="evenodd" width="27.223" height="1.944" fill="#ffffff"/>
-	<rect x="17.47" y="49.835" fill-rule="evenodd" clip-rule="evenodd" width="27.223" height="1.943" fill="#ffffff"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;}</style></defs><title>content-paper-edit</title><path class="a" d="M11,18.5H1.5a1,1,0,0,1-1-1V1.5a1,1,0,0,1,1-1h15a1,1,0,0,1,1,1v10"/><path class="a" d="M15.7,22.3l-4.2,1.2,1.2-4.2,7.179-7.179a2.121,2.121,0,0,1,3,3Z"/><line class="a" x1="18.979" y1="13.021" x2="21.979" y2="16.021"/><line class="a" x1="12.7" y1="19.3" x2="15.7" y2="22.3"/><line class="a" x1="6" y1="4.5" x2="13" y2="4.5"/><line class="a" x1="4" y1="7.5" x2="13" y2="7.5"/><line class="a" x1="4" y1="10.5" x2="13" y2="10.5"/><line class="a" x1="4" y1="13.5" x2="10.5" y2="13.5"/></svg>

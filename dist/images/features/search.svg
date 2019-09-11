@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g>
-	<circle fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" cx="28.89" cy="28.743" r="19.517"/>
-	<line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="42.54" y1="42.688" x2="54.626" y2="54.773"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.a{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;}</style></defs><title>astronomy-telescope-stars</title><line class="a" x1="9.5" y1="23.5" x2="9.5" y2="14.5"/><polyline class="a" points="4.5 23.5 9.5 14.5 14.5 23.5"/><path class="a" d="M2.823,9.613h3a0,0,0,0,1,0,0v3a1,1,0,0,1-1,1h-1a1,1,0,0,1-1-1v-3a0,0,0,0,1,0,0Z" transform="translate(13.725 3.541) rotate(69.768)"/><path class="a" d="M6.045,7.557h5a0,0,0,0,1,0,0v4a1,1,0,0,1-1,1h-3a1,1,0,0,1-1-1v-4a0,0,0,0,1,0,0Z" transform="translate(15.027 -1.439) rotate(69.768)"/><path class="a" d="M12.992,12.224a1,1,0,0,1-1.211-.616L10,6.777a1,1,0,0,1,.521-1.254l4.1-1.881a1,1,0,0,1,1.355.563L18,9.685a1,1,0,0,1-.666,1.308Z"/><path class="a" d="M20.875,18.8l2.544-.953a.125.125,0,0,0,0-.234l-2.544-.955a.123.123,0,0,1-.073-.073l-.954-2.543a.125.125,0,0,0-.234,0l-.954,2.543a.12.12,0,0,1-.073.073l-2.544.955a.125.125,0,0,0,0,.234l2.544.953a.123.123,0,0,1,.073.073l.954,2.545a.125.125,0,0,0,.234,0l.954-2.545A.125.125,0,0,1,20.875,18.8Z"/><path class="a" d="M3.5.5,2.712,2.6a.187.187,0,0,1-.11.11L.5,3.5l2.1.787a.187.187,0,0,1,.11.11L3.5,6.5l.788-2.1a.187.187,0,0,1,.11-.11L6.5,3.5,4.4,2.711a.187.187,0,0,1-.11-.11L3.5.5"/></svg>
