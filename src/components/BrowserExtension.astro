@@ -1,0 +1,175 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from './Button.astro';
+
+// TODO: swap to the Chrome Web Store / Edge listing once published.
+const EXTENSION_URL = 'https://github.com/astralapp/astral-browser-extension';
+const REPO_URL = 'https://github.com/astralapp/astral-browser-extension';
+
+const tags = ['vue', 'cli', 'must-try'];
+const suggestions = ['state-management', 'testing', 'design-system'];
+---
+
+<section id="extension" class="scroll-mt-24 border-b border-line/40">
+  <div
+    class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:items-center"
+  >
+    {/* Visual: a GitHub repo header with the extension's Tags button + popover */}
+    <div class="relative order-last lg:order-first">
+      <div class="ext-glow" aria-hidden="true"></div>
+      <div class="ext-card relative">
+        <div class="flex items-center justify-between gap-3 border-b border-line/60 px-4 py-3">
+          <span class="flex min-w-0 items-center gap-2 text-sm">
+            <Icon name="lucide:book-marked" class="size-4 shrink-0 text-muted" aria-hidden="true" />
+            <span class="truncate text-muted">astralapp /</span>
+            <span class="truncate font-semibold text-ink">astral</span>
+          </span>
+          <span class="flex shrink-0 items-center gap-1.5">
+            <span class="ghbtn hidden sm:inline-flex">
+              <Icon name="lucide:eye" class="size-3.5" aria-hidden="true" /> Watch
+            </span>
+            <span class="ghbtn hidden sm:inline-flex">
+              <Icon name="lucide:git-fork" class="size-3.5" aria-hidden="true" /> Fork
+            </span>
+            <span class="ghbtn">
+              <Icon name="lucide:star" class="size-3.5" aria-hidden="true" /> 6.9k
+            </span>
+            <span class="ghbtn ghbtn-tags">
+              <Icon name="lucide:tag" class="size-3.5" aria-hidden="true" /> Tags
+            </span>
+          </span>
+        </div>
+
+        <div class="px-4 pt-4 pb-5">
+          <div class="ext-popover ml-auto max-w-xs">
+            <p class="text-[0.7rem] font-semibold tracking-wide text-muted uppercase">Tags</p>
+            <div class="ext-input mt-3">
+              {
+                tags.map((t) => (
+                  <span class="ext-chip">
+                    {t}
+                    <Icon name="lucide:x" class="size-3 opacity-70" aria-hidden="true" />
+                  </span>
+                ))
+              }
+              <span class="ext-caret text-muted">Add a tag…</span>
+            </div>
+            <div class="mt-1.5 space-y-0.5">
+              <div class="ext-row ext-row-active">
+                <Icon name="lucide:plus" class="size-3.5" aria-hidden="true" />
+                state-management
+              </div>
+              {suggestions.slice(1).map((s) => <div class="ext-row">{s}</div>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Copy */}
+    <div>
+      <h2 class="text-3xl font-bold text-ink sm:text-4xl">Tag without leaving GitHub</h2>
+      <p class="mt-4 text-lg text-body">
+        Astral's browser extension drops a <strong class="font-semibold text-ink">Tags</strong> button
+        right into the repo header, beside Star and Fork. Open it to view a repo's tags and add,
+        create, or remove them inline, with autocomplete and no GitHub token. Not starred yet? Star &
+        tag does both at once.
+      </p>
+      <p class="mt-4 text-sm text-muted">Chrome, Edge, Brave, and Arc, with Firefox on the way.</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button href={EXTENSION_URL} external variant="primary" size="lg">
+          <Icon name="lucide:puzzle" class="size-4" aria-hidden="true" />
+          Get the extension
+        </Button>
+        <Button href={REPO_URL} external variant="secondary" size="lg">
+          <Icon name="lucide:github" class="size-4" aria-hidden="true" />
+          View source
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ext-glow {
+    position: absolute;
+    inset: -12% -8% auto -8%;
+    height: 70%;
+    background: radial-gradient(
+      50% 70% at 60% 30%,
+      color-mix(in oklab, var(--color-brand-500) 22%, transparent),
+      transparent 70%
+    );
+    filter: blur(60px);
+  }
+  .ext-card {
+    border-radius: 0.75rem;
+    background-color: var(--color-rail);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--color-line) 80%, transparent),
+      0 24px 70px -40px rgb(0 0 0 / 0.6);
+  }
+  .ghbtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 0.375rem;
+    border: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+    background-color: color-mix(in oklab, var(--color-surface) 60%, transparent);
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-body);
+  }
+  .ghbtn-tags {
+    border-color: color-mix(in oklab, var(--color-brand-500) 50%, transparent);
+    background-color: color-mix(in oklab, var(--color-brand-500) 16%, transparent);
+    color: var(--color-brand-300);
+  }
+  .ext-popover {
+    border-radius: 0.625rem;
+    border: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+    background-color: var(--color-surface);
+    padding: 0.85rem 0.9rem;
+    box-shadow: 0 16px 40px -24px rgb(0 0 0 / 0.7);
+  }
+  .ext-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 0.25rem;
+    background-color: color-mix(in oklab, var(--color-tag) 20%, transparent);
+    padding: 0.15rem 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #c7d2fe;
+  }
+  .ext-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 0.375rem;
+    border: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+    background-color: color-mix(in oklab, var(--color-canvas) 50%, transparent);
+    padding: 0.35rem 0.4rem;
+    font-size: 0.8rem;
+  }
+  .ext-caret {
+    padding-inline: 0.15rem;
+  }
+  .ext-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 0.375rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
+    color: var(--color-body);
+  }
+  .ext-row-active {
+    background-color: color-mix(in oklab, var(--color-brand-500) 14%, transparent);
+    color: var(--color-brand-300);
+    font-weight: 500;
+  }
+</style>
