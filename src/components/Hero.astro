@@ -1,0 +1,82 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from './Button.astro';
+import Starfield from './Starfield.astro';
+import BrowserFrame from './BrowserFrame.astro';
+
+const APP_URL = 'https://app.astralapp.com';
+const REPO_URL = 'https://github.com/astralapp/astral';
+---
+
+<section class="relative overflow-hidden">
+  <Starfield class="opacity-60" />
+
+  <div class="relative mx-auto max-w-6xl px-5 pt-36 pb-20 text-center sm:px-8 sm:pt-44">
+    <h1
+      class="font-display mx-auto max-w-4xl text-[clamp(2.25rem,6vw,4.25rem)] leading-[1.05] font-bold tracking-[0.02em] text-ink"
+    >
+      Organize your GitHub stars
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-body sm:text-xl">
+      Tags, smart filters, notes, and instant search turn a sprawling pile of stars into a library
+      you'll actually use. Find any repo in seconds.
+    </p>
+
+    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <Button href={APP_URL} variant="primary" size="lg">Get started — free</Button>
+      <Button href={REPO_URL} external variant="secondary" size="lg">
+        <Icon name="lucide:github" class="size-4" aria-hidden="true" />
+        View on GitHub
+      </Button>
+    </div>
+
+    <p class="mt-5 text-sm text-muted">Sign in with GitHub · Free forever · Open source</p>
+
+    <div class="relative mt-16 sm:mt-20">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="screenshot-wrap relative mx-auto max-w-5xl">
+        <BrowserFrame
+          src="/images/screenshot-dashboard.png"
+          alt="The Astral dashboard: thousands of GitHub stars sorted by tag and language, beside an in-app README reader"
+          class="relative"
+        />
+        <div class="screenshot-fade" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-glow {
+    position: absolute;
+    inset: -8% -6% 0;
+    z-index: 0;
+    background: radial-gradient(
+      55% 55% at 50% 28%,
+      color-mix(in oklab, var(--color-brand-500) 38%, transparent),
+      transparent 72%
+    );
+    filter: blur(64px);
+    animation: glow 7s ease-in-out infinite;
+  }
+  .screenshot-wrap {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: -2s;
+  }
+  .screenshot-fade {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 26%;
+    border-radius: 0 0 0.75rem 0.75rem;
+    background: linear-gradient(to bottom, transparent, var(--color-canvas));
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-glow,
+    .screenshot-wrap {
+      animation: none;
+    }
+  }
+</style>

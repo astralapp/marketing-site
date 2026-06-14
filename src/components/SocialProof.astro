@@ -1,0 +1,24 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const points = [
+  { icon: 'lucide:git-fork', label: 'Free & open source' },
+  { icon: 'lucide:shield-check', label: 'GitHub OAuth, no passwords' },
+  { icon: 'lucide:server', label: 'Self-hostable with Docker' },
+] as const;
+---
+
+<section class="border-y border-line/40">
+  <div
+    class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-x-10 gap-y-4 px-5 py-6 text-sm text-muted sm:flex-row sm:px-8"
+  >
+    {
+      points.map((p) => (
+        <span class="inline-flex items-center gap-2">
+          <Icon name={p.icon} class="size-4 text-brand-400" aria-hidden="true" />
+          {p.label}
+        </span>
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,43 @@
+---
+import { Icon } from 'astro-icon/components';
+import { faqs } from '../data/faq';
+---
+
+<section id="faq" class="scroll-mt-24">
+  <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-28">
+    <h2 class="text-3xl font-bold text-ink sm:text-4xl">Questions, answered</h2>
+
+    <div class="mt-10 border-t border-line/50">
+      {
+        faqs.map((f) => (
+          <details class="border-b border-line/50">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 py-5 text-lg font-medium text-ink">
+              {f.q}
+              <Icon
+                name="lucide:chevron-down"
+                class="faq-chevron size-5 shrink-0 text-muted"
+                aria-hidden="true"
+              />
+            </summary>
+            <p class="pb-5 text-body">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    transition: transform 0.2s ease;
+  }
+  details[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+</style>

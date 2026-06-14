@@ -1,0 +1,61 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="Privacy Policy"
+  updated="June 14, 2026"
+  description="How Astral handles your GitHub data, what it stores, and what it never does."
+>
+  <p>
+    Astral helps you organize your GitHub stars. This policy explains what data Astral touches,
+    what it stores, and what it deliberately does not do. If you self-host Astral, your instance is
+    governed by whoever operates it. This policy covers the hosted app at
+    <strong>astralapp.com</strong>.
+  </p>
+
+  <h2>Signing in</h2>
+  <p>
+    You sign in with GitHub through OAuth. Astral never sees or stores a password. The grant lets
+    Astral read your public profile and your starred repositories, and star or unstar repositories
+    on your behalf. You can review or revoke this access at any time from your GitHub settings.
+  </p>
+
+  <h2>What Astral stores</h2>
+  <ul>
+    <li>A cached copy of your starred repositories, so the app stays fast.</li>
+    <li>The tags, notes, and smart filters you create.</li>
+    <li>Your account basics (GitHub username, avatar) and your app settings.</li>
+  </ul>
+
+  <h2>What Astral does not do</h2>
+  <ul>
+    <li>It does not sell or rent your data.</li>
+    <li>It does not run third-party advertising or behavioural trackers.</li>
+    <li>It does not access private repositories or any scope beyond what's listed above.</li>
+  </ul>
+
+  <h2>Cookies</h2>
+  <p>
+    Astral uses a single session cookie to keep you signed in. There are no advertising or
+    cross-site tracking cookies.
+  </p>
+
+  <h2>Deleting your data</h2>
+  <p>
+    You can delete your account from within Astral, which removes your stored stars, tags, and
+    notes. You can also revoke Astral's GitHub access independently from your GitHub account
+    settings.
+  </p>
+
+  <h2>Self-hosting</h2>
+  <p>
+    Astral is open source and self-hostable. Running your own instance keeps every byte on
+    infrastructure you control.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about privacy? Email <a href="mailto:hello@astralapp.com">hello@astralapp.com</a>.
+  </p>
+</LegalLayout>

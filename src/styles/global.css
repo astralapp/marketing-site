@@ -1,0 +1,123 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Astral marketing site — dark observatory theme.
+   Tokens preserve the app's committed identity (Signal Green, Inter + Orbitron,
+   cool near-black surfaces, tight corners). See DESIGN.md. */
+@theme {
+  /* Surfaces — cool near-black ramp */
+  --color-canvas: #030712;
+  --color-void: #000000;
+  --color-rail: #101828;
+  --color-surface: #1e2939;
+  --color-line: #364153;
+
+  /* Text on dark (all ≥ 4.5:1 on canvas) */
+  --color-ink: #f9fafb;
+  --color-body: #d1d5dc;
+  --color-muted: #99a1af;
+
+  /* Brand — Signal Green */
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+  --color-brand-950: #022c22;
+
+  /* Tag indigo — fenced to tag chips only */
+  --color-tag: #615fff;
+
+  /* Type */
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-display: 'Orbitron', var(--font-sans);
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-drift: drift 200s linear infinite;
+  --animate-glow: glow 6s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-1.25%);
+    }
+  }
+  @keyframes drift {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50%);
+    }
+  }
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 0.9;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings inherit ink; balance short headings, relax long prose */
+  h1,
+  h2,
+  h3 {
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Honest, branded focus ring everywhere */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-400);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-brand-500) 30%, transparent);
+    color: var(--color-ink);
+  }
+}
+
+/* Reduced-motion safety net — every animation has an off-ramp */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

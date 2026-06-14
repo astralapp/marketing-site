@@ -1,0 +1,39 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  /** Intrinsic pixel size of the image (for aspect ratio / no layout shift). */
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const { src, alt, width = 1512, height = 945, class: className } = Astro.props;
+---
+
+<figure
+  class:list={[
+    'overflow-hidden rounded-xl border border-line/80 bg-surface shadow-2xl shadow-black/40',
+    className,
+  ]}
+>
+  <div class="flex items-center gap-2 border-b border-line/60 bg-rail px-4 py-3">
+    <span class="size-3 rounded-full bg-line"></span>
+    <span class="size-3 rounded-full bg-line"></span>
+    <span class="size-3 rounded-full bg-line"></span>
+    <span
+      class="ml-3 hidden flex-1 truncate rounded-md bg-canvas/50 px-3 py-1 text-center text-xs text-muted sm:block"
+    >
+      app.astralapp.com
+    </span>
+  </div>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading="lazy"
+    decoding="async"
+    class="block w-full"
+  />
+</figure>

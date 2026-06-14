@@ -1,0 +1,42 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from './Button.astro';
+
+const REPO_URL = 'https://github.com/astralapp/astral';
+const SPONSOR_URL = 'https://github.com/sponsors/syropian';
+---
+
+<section id="open-source" class="scroll-mt-24">
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:items-center">
+    <div>
+      <h2 class="text-3xl font-bold text-ink sm:text-4xl">Yours to keep, yours to run</h2>
+      <p class="mt-4 text-lg text-body">
+        Astral is free and MIT-licensed. Use the hosted app, or clone the repo and run your own
+        instance on Docker, backed by SQLite or MySQL. No tiers, no lock-in, no selling your data.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button href={REPO_URL} external variant="primary" size="lg">
+          <Icon name="lucide:github" class="size-4" aria-hidden="true" />
+          Star on GitHub
+        </Button>
+        <Button href={SPONSOR_URL} external variant="secondary" size="lg">
+          <Icon name="lucide:heart" class="size-4" aria-hidden="true" />
+          Sponsor Astral
+        </Button>
+      </div>
+    </div>
+
+    <div class="overflow-hidden rounded-xl border border-line/80 bg-void/60">
+      <div class="flex items-center gap-2 border-b border-line/60 px-4 py-3">
+        <span class="size-3 rounded-full bg-line"></span>
+        <span class="size-3 rounded-full bg-line"></span>
+        <span class="size-3 rounded-full bg-line"></span>
+        <span class="ml-2 text-xs text-muted">self-host in a minute</span>
+      </div>
+      <pre class="overflow-x-auto px-5 py-5 text-sm leading-relaxed"><code><span class="text-muted"># clone, configure, and bring it up</span>
+<span class="text-ink">git</span> clone https://github.com/astralapp/astral
+<span class="text-ink">cd</span> astral
+<span class="text-ink">docker</span> compose up <span class="text-brand-400">-d</span></code></pre>
+    </div>
+  </div>
+</section>

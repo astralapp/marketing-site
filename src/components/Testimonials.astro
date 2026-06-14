@@ -1,0 +1,44 @@
+---
+import { testimonials } from '../data/testimonials';
+---
+
+<section class="border-y border-line/40 bg-rail">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-bold text-ink sm:text-4xl">Developers stopped losing their stars</h2>
+      <p class="mt-4 text-lg text-body">A few words from people who star a little too much.</p>
+    </div>
+
+    <div class="mt-14 columns-1 gap-5 sm:columns-2 lg:columns-3">
+      {
+        testimonials.map((t) => (
+          <figure class="mb-5 break-inside-avoid rounded-lg border border-line/50 bg-surface/40 p-5">
+            <blockquote class="text-body">“{t.quote}”</blockquote>
+            <figcaption class="mt-4 flex items-center gap-3">
+              <img
+                src={t.avatar}
+                alt=""
+                width="40"
+                height="40"
+                loading="lazy"
+                decoding="async"
+                class="size-10 rounded-full object-cover"
+              />
+              <span>
+                <span class="block text-sm font-semibold text-ink">{t.name}</span>
+                <a
+                  href={`https://twitter.com/${t.handle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-muted transition-colors hover:text-brand-400"
+                >
+                  @{t.handle}
+                </a>
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

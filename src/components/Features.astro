@@ -1,0 +1,30 @@
+---
+import { Icon } from 'astro-icon/components';
+import { features } from '../data/features';
+---
+
+<section id="features" class="scroll-mt-24">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-bold text-ink sm:text-4xl">Everything your stars were missing</h2>
+      <p class="mt-4 text-lg text-body">
+        Stars pile up fast, and finding the right one again is the hard part. Astral gives the pile
+        the structure to stay useful, so nothing good gets lost.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        features.map((f) => (
+          <div class="border-t border-line/50 pt-6">
+            <div class="flex items-center gap-2.5">
+              <Icon name={f.icon} class="size-5 text-brand-400" aria-hidden="true" />
+              <h3 class="text-base font-semibold text-ink">{f.title}</h3>
+            </div>
+            <p class="mt-3 text-body">{f.blurb}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

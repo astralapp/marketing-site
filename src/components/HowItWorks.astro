@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const panes = [
+  {
+    icon: 'lucide:panel-left',
+    name: 'The rail',
+    desc: 'Tags, smart filters, and languages run down the left. Drag a star onto a tag, or pin the filter you reach for every day.',
+  },
+  {
+    icon: 'lucide:list',
+    name: 'The catalog',
+    desc: 'Every matching star sits in the middle with language chips and counts. Press / to search names, descriptions, and READMEs at once.',
+  },
+  {
+    icon: 'lucide:book-open-text',
+    name: 'The reading surface',
+    desc: 'Open any star to read its README inline and jot a note without leaving Astral or losing your place in the list.',
+  },
+];
+---
+
+<section id="how-it-works" class="scroll-mt-24 border-y border-line/40 bg-rail">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-bold text-ink sm:text-4xl">A workstation, not a list</h2>
+      <p class="mt-4 text-lg text-body">
+        Astral is three panes that keep your hands on the keyboard and every star in view. The same
+        layout, light or dark.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-10 md:grid-cols-3">
+      {
+        panes.map((p) => (
+          <div>
+            <Icon name={p.icon} class="size-6 text-brand-400" aria-hidden="true" />
+            <h3 class="mt-4 text-lg font-semibold text-ink">{p.name}</h3>
+            <p class="mt-2 text-body">{p.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

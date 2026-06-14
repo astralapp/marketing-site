@@ -1,0 +1,112 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+
+const APP_URL = 'https://app.astralapp.com';
+const AUTH_URL = 'https://app.astralapp.com/auth';
+
+const links = [
+  { href: '#features', label: 'Features' },
+  { href: '#how-it-works', label: 'How it works' },
+  { href: '#open-source', label: 'Open source' },
+  { href: '#faq', label: 'FAQ' },
+];
+---
+
+<header id="nav" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300">
+  <nav
+    class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8"
+    aria-label="Primary"
+  >
+    <a href="/" class="shrink-0 rounded-sm" aria-label="Astral — home">
+      <Logo class="h-7" />
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      <ul class="flex items-center gap-7 text-sm text-body">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} class="transition-colors hover:text-ink">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="flex items-center gap-3">
+        <Button href={AUTH_URL} variant="secondary">Sign in</Button>
+        <Button href={APP_URL} variant="primary">Get started — free</Button>
+      </div>
+    </div>
+
+    <button
+      id="nav-toggle"
+      type="button"
+      class="-mr-2 inline-flex size-10 items-center justify-center rounded-md text-ink md:hidden"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <Icon name="lucide:menu" class="icon-open size-6" />
+      <Icon name="lucide:x" class="icon-close size-6" />
+    </button>
+  </nav>
+
+  <div id="mobile-menu" hidden class="border-t border-line/60 bg-rail/95 px-5 py-5 md:hidden">
+    <ul class="flex flex-col gap-1 text-base text-body">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} class="block rounded-md px-2 py-2.5 transition-colors hover:bg-surface hover:text-ink">
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="mt-4 flex flex-col gap-3">
+      <Button href={AUTH_URL} variant="secondary" size="lg" class="w-full">Sign in</Button>
+      <Button href={APP_URL} variant="primary" size="lg" class="w-full">Get started — free</Button>
+    </div>
+  </div>
+</header>
+
+<style>
+  #nav.is-scrolled {
+    background-color: color-mix(in oklab, var(--color-rail) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid color-mix(in oklab, var(--color-line) 55%, transparent);
+  }
+  #nav-toggle .icon-close {
+    display: none;
+  }
+  #nav-toggle[aria-expanded='true'] .icon-open {
+    display: none;
+  }
+  #nav-toggle[aria-expanded='true'] .icon-close {
+    display: inline;
+  }
+</style>
+
+<script>
+  const header = document.getElementById('nav');
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      menu.toggleAttribute('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+    toggle.addEventListener('click', () => setOpen(menu.hasAttribute('hidden')));
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  }
+</script>

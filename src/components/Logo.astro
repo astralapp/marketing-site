@@ -1,0 +1,25 @@
+---
+import logo from '../assets/logo.svg?raw';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={['astral-logo', className]} role="img" aria-label="Astral" set:html={logo} />
+
+<style>
+  .astral-logo {
+    display: inline-block;
+    line-height: 0;
+    color: var(--color-ink);
+  }
+  .astral-logo :global(svg) {
+    height: 100%;
+    width: auto;
+    fill: currentColor;
+    display: block;
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  updated: string;
+  description?: string;
+}
+
+const { title, updated, description } = Astro.props;
+---
+
+<Base title={`${title} — Astral`} description={description}>
+  <Nav />
+  <main class="mx-auto max-w-3xl px-5 pt-32 pb-20 sm:px-8 sm:pt-40">
+    <a href="/" class="text-sm text-muted transition-colors hover:text-brand-400">← Back to home</a>
+    <h1 class="mt-6 text-3xl font-bold text-ink sm:text-4xl">{title}</h1>
+    <p class="mt-2 text-sm text-muted">Last updated {updated}</p>
+    <article
+      class="prose prose-invert mt-10 max-w-none prose-headings:text-ink prose-a:text-brand-400 prose-strong:text-ink"
+    >
+      <slot />
+    </article>
+  </main>
+  <Footer />
+</Base>

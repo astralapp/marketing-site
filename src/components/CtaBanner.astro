@@ -1,0 +1,48 @@
+---
+import Button from './Button.astro';
+import Starfield from './Starfield.astro';
+
+const APP_URL = 'https://app.astralapp.com';
+---
+
+<section class="px-5 py-20 sm:px-8 sm:py-28">
+  <div
+    class="border-line/60 bg-rail relative mx-auto max-w-5xl overflow-hidden rounded-2xl border px-6 py-16 text-center sm:px-12"
+  >
+    <Starfield class="opacity-40" density={70} />
+    <div class="cta-glow" aria-hidden="true"></div>
+    <div class="relative">
+      <h2
+        class="text-ink mx-auto max-w-xl text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+      >
+        Bring your stars into focus
+      </h2>
+      <p class="text-body mx-auto mt-4 max-w-xl text-lg">
+        Sign in with GitHub and watch the pile become a catalog. Free, open source, no passwords.
+      </p>
+      <div class="mt-8 flex justify-center">
+        <Button href={APP_URL} variant="primary" size="lg">Get started — free</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-glow {
+    position: absolute;
+    inset: auto 0 -40% 0;
+    height: 80%;
+    background: radial-gradient(
+      50% 60% at 50% 100%,
+      color-mix(in oklab, var(--color-brand-500) 30%, transparent),
+      transparent 70%
+    );
+    filter: blur(56px);
+    animation: glow 7s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta-glow {
+      animation: none;
+    }
+  }
+</style>
