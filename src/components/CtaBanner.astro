@@ -6,9 +6,14 @@ const APP_URL = 'https://app.astralapp.com';
 ---
 
 <section class="px-5 py-20 sm:px-8 sm:py-28">
-  <div
-    class="border-line/60 bg-rail relative mx-auto max-w-5xl overflow-hidden rounded-2xl border px-6 py-16 text-center sm:px-12"
-  >
+  <div class="cta-card relative mx-auto max-w-5xl overflow-hidden rounded-2xl px-6 py-16 text-center sm:px-12">
+    <svg class="cta-orbits" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="300" cy="300" r="108"></circle>
+        <circle cx="300" cy="300" r="186" stroke-opacity="0.65"></circle>
+        <circle cx="300" cy="300" r="268" stroke-opacity="0.33"></circle>
+      </g>
+    </svg>
     <Starfield class="opacity-40" density={70} />
     <div class="cta-glow" aria-hidden="true"></div>
     <div class="relative">
@@ -28,13 +33,41 @@ const APP_URL = 'https://app.astralapp.com';
 </section>
 
 <style>
+  .cta-card {
+    background:
+      radial-gradient(
+        115% 130% at 50% -25%,
+        color-mix(in oklab, var(--color-surface) 55%, var(--color-rail)),
+        transparent 55%
+      ),
+      var(--color-rail);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--color-line) 75%, transparent),
+      inset 0 1px 0 color-mix(in oklab, var(--color-ink) 12%, transparent),
+      0 24px 110px -45px color-mix(in oklab, var(--color-brand-500) 50%, transparent);
+  }
+
+  /* faint orbit rings — a nod to the wordmark's planet */
+  .cta-orbits {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(760px, 130%);
+    aspect-ratio: 1;
+    transform: translate(-50%, -52%);
+    color: var(--color-brand-400);
+    opacity: 0.16;
+    -webkit-mask-image: radial-gradient(closest-side, #000 52%, transparent 90%);
+    mask-image: radial-gradient(closest-side, #000 52%, transparent 90%);
+  }
+
   .cta-glow {
     position: absolute;
     inset: auto 0 -40% 0;
     height: 80%;
     background: radial-gradient(
       50% 60% at 50% 100%,
-      color-mix(in oklab, var(--color-brand-500) 30%, transparent),
+      color-mix(in oklab, var(--color-brand-500) 32%, transparent),
       transparent 70%
     );
     filter: blur(56px);
