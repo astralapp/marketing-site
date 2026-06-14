@@ -6,7 +6,7 @@ interface Props {
 
 const { class: className, density = 130 } = Astro.props;
 
-/** Deterministic PRNG so the field is stable across builds (no flicker on redeploy). */
+/** Deterministic PRNG so the static fallback field is stable across builds. */
 function mulberry32(seed: number) {
   return () => {
     seed = (seed + 0x6d2b79f5) | 0;
@@ -31,21 +31,26 @@ const stars = Array.from({ length: density }, () => {
 });
 ---
 
-<svg class:list={['starfield', className]} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-  {
-    stars.map((s) => (
-      <circle
-        cx={`${s.x}%`}
-        cy={`${s.y}%`}
-        r={s.r}
-        fill={s.green ? 'var(--color-brand-400)' : 'var(--color-ink)'}
-        opacity={s.o}
-        class:list={[s.twinkle && 'twinkle']}
-        style={s.twinkle ? `animation-delay:${s.delay}s` : undefined}
-      />
-    ))
-  }
-</svg>
+<div class:list={['starfield', className]} aria-hidden="true">
+  {/* Static field — the reduced-motion and no-JS fallback. */}
+  <svg class="starfield-static" preserveAspectRatio="xMidYMid slice">
+    {
+      stars.map((s) => (
+        <circle
+          cx={`${s.x}%`}
+          cy={`${s.y}%`}
+          r={s.r}
+          fill={s.green ? 'var(--color-brand-400)' : 'var(--color-ink)'}
+          opacity={s.o}
+          class:list={[s.twinkle && 'twinkle']}
+          style={s.twinkle ? `animation-delay:${s.delay}s` : undefined}
+        />
+      ))
+    }
+  </svg>
+  {/* Animated field — cursor parallax + sporadic meteors. Activated only when motion is allowed. */}
+  <canvas class="starfield-canvas"></canvas>
+</div>
 
 <style>
   .starfield {
@@ -53,9 +58,240 @@ const stars = Array.from({ length: density }, () => {
     inset: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     pointer-events: none;
+  }
+  .starfield-static,
+  .starfield-canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .starfield-canvas {
+    opacity: 0;
+    transition: opacity 700ms ease;
+  }
+  .starfield.is-animated .starfield-canvas {
+    opacity: 1;
+  }
+  .starfield.is-animated .starfield-static {
+    opacity: 0;
+    transition: opacity 700ms ease;
   }
   .twinkle {
     animation: glow 6s ease-in-out infinite;
   }
+  @media (prefers-reduced-motion: reduce) {
+    .starfield-canvas {
+      display: none;
+    }
+  }
 </style>
+
+<script>
+  const WHITE = '255, 255, 255';
+  const GREEN = '110, 231, 183';
+  const GREEN_RATIO = 0.12;
+  const AREA_PER_STAR = 10000;
+  const METEOR_DELAY = [7, 16];
+  const TAIL_SECONDS = 0.12;
+
+  // Far stars are small, dim, slow; near stars are brighter and parallax harder.
+  const LAYERS = [
+    { share: 0.5, drift: 2, parallax: 3, radius: [0.4, 0.8], alpha: [0.2, 0.45] },
+    { share: 0.3, drift: 4, parallax: 6, radius: [0.6, 1.1], alpha: [0.3, 0.65] },
+    { share: 0.2, drift: 7, parallax: 10, radius: [0.9, 1.6], alpha: [0.5, 0.9] },
+  ];
+
+  const between = (a, b) => a + Math.random() * (b - a);
+
+  const pointerTarget = { x: 0, y: 0 };
+  const pointerEased = { x: 0, y: 0 };
+
+  class Field {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.host = canvas.closest('.starfield') || canvas.parentElement;
+      this.ctx = canvas.getContext('2d');
+      this.w = 0;
+      this.h = 0;
+      this.elapsed = 0;
+      this.stars = [];
+      this.meteor = null;
+      this.nextMeteor = between(METEOR_DELAY[0], METEOR_DELAY[1]);
+      this.visible = true;
+      this.resize();
+      new ResizeObserver(() => this.resize()).observe(this.host);
+      new IntersectionObserver((entries) => (this.visible = entries[0].isIntersecting), {
+        rootMargin: '200px',
+      }).observe(this.host);
+    }
+
+    makeStar(layer) {
+      const L = LAYERS[layer];
+      return {
+        layer,
+        x: Math.random() * this.w,
+        y: Math.random() * this.h,
+        radius: between(L.radius[0], L.radius[1]),
+        alpha: between(L.alpha[0], L.alpha[1]),
+        phase: Math.random() * Math.PI * 2,
+        speed: between(0.4, 1.4),
+        rgb: Math.random() < GREEN_RATIO ? GREEN : WHITE,
+      };
+    }
+
+    sync() {
+      LAYERS.forEach((L, i) => {
+        const target = Math.round(((this.w * this.h) / AREA_PER_STAR) * L.share);
+        const current = this.stars.filter((s) => s.layer === i).length;
+        if (current < target) {
+          for (let k = 0; k < target - current; k++) this.stars.push(this.makeStar(i));
+        } else if (current > target) {
+          let excess = current - target;
+          this.stars = this.stars.filter((s) => s.layer !== i || --excess < 0);
+        }
+      });
+    }
+
+    resize() {
+      const rect = this.host.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const prevW = this.w;
+      const prevH = this.h;
+      this.w = rect.width;
+      this.h = rect.height;
+      this.canvas.width = Math.round(this.w * dpr);
+      this.canvas.height = Math.round(this.h * dpr);
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (prevW > 0 && prevH > 0) {
+        for (const s of this.stars) {
+          s.x *= this.w / prevW;
+          s.y *= this.h / prevH;
+        }
+      }
+      this.sync();
+    }
+
+    spawnMeteor() {
+      const dir = Math.random() < 0.5 ? 1 : -1;
+      const speed = between(420, 640);
+      const angle = between(0.25, 0.45);
+      this.meteor = {
+        x: between(this.w * 0.15, this.w * 0.85),
+        y: between(this.h * 0.05, this.h * 0.35),
+        vx: Math.cos(angle) * speed * dir,
+        vy: Math.sin(angle) * speed,
+        age: 0,
+        life: between(0.6, 1),
+      };
+    }
+
+    frame(dt) {
+      if (!this.ctx || !this.w || !this.h || !this.visible) return;
+      this.elapsed += dt;
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, this.w, this.h);
+
+      for (const s of this.stars) {
+        const L = LAYERS[s.layer];
+        s.y -= L.drift * dt;
+        if (s.y < -2) {
+          s.y = this.h + 2;
+          s.x = Math.random() * this.w;
+        }
+        const twinkle = 0.72 + 0.28 * Math.sin(s.phase + this.elapsed * s.speed);
+        const alpha = s.alpha * twinkle;
+        const x = s.x + pointerEased.x * L.parallax;
+        const y = s.y + pointerEased.y * L.parallax;
+        ctx.beginPath();
+        ctx.arc(x, y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${s.rgb}, ${alpha})`;
+        ctx.fill();
+        if (s.layer === LAYERS.length - 1) {
+          ctx.beginPath();
+          ctx.arc(x, y, s.radius * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${s.rgb}, ${alpha * 0.12})`;
+          ctx.fill();
+        }
+      }
+
+      if (!this.meteor) {
+        this.nextMeteor -= dt;
+        if (this.nextMeteor <= 0) this.spawnMeteor();
+        return;
+      }
+      this.meteor.age += dt;
+      if (this.meteor.age >= this.meteor.life) {
+        this.meteor = null;
+        this.nextMeteor = between(METEOR_DELAY[0], METEOR_DELAY[1]);
+        return;
+      }
+      const m = this.meteor;
+      m.x += m.vx * dt;
+      m.y += m.vy * dt;
+      const p = m.age / m.life;
+      const fade = Math.min(p / 0.2, (1 - p) / 0.4, 1);
+      const tx = m.x - m.vx * TAIL_SECONDS;
+      const ty = m.y - m.vy * TAIL_SECONDS;
+      const grad = ctx.createLinearGradient(m.x, m.y, tx, ty);
+      grad.addColorStop(0, `rgba(${WHITE}, ${0.75 * fade})`);
+      grad.addColorStop(1, `rgba(${WHITE}, 0)`);
+      ctx.beginPath();
+      ctx.moveTo(m.x, m.y);
+      ctx.lineTo(tx, ty);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.5;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+  }
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let fields = [];
+  let raf = 0;
+  let last = 0;
+
+  function loop(t) {
+    const dt = Math.min(last ? t - last : 16, 100) / 1000;
+    last = t;
+    const smoothing = 1 - Math.exp(-dt * 4);
+    pointerEased.x += (pointerTarget.x - pointerEased.x) * smoothing;
+    pointerEased.y += (pointerTarget.y - pointerEased.y) * smoothing;
+    for (const f of fields) f.frame(dt);
+    raf = requestAnimationFrame(loop);
+  }
+
+  function onPointer(e) {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    pointerTarget.x = (e.clientX / window.innerWidth) * 2 - 1;
+    pointerTarget.y = (e.clientY / window.innerHeight) * 2 - 1;
+  }
+
+  function start() {
+    if (fields.length) return;
+    const canvases = [...document.querySelectorAll('.starfield-canvas')];
+    if (!canvases.length) return;
+    fields = canvases.map((c) => {
+      const field = new Field(c);
+      field.host.classList.add('is-animated');
+      return field;
+    });
+    last = 0;
+    raf = requestAnimationFrame(loop);
+    window.addEventListener('pointermove', onPointer, { passive: true });
+  }
+
+  function stop() {
+    cancelAnimationFrame(raf);
+    window.removeEventListener('pointermove', onPointer);
+    for (const f of fields) f.host.classList.remove('is-animated');
+    fields = [];
+  }
+
+  if (!reduce.matches) start();
+  reduce.addEventListener('change', (e) => (e.matches ? stop() : start()));
+</script>
