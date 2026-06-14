@@ -6,7 +6,10 @@ const REPO_URL = 'https://github.com/astralapp/astral';
 const SPONSOR_URL = 'https://github.com/sponsors/syropian';
 ---
 
-<section id="open-source" class="scroll-mt-24">
+<section
+  id="open-source"
+  class="os-band relative scroll-mt-24 overflow-hidden border-y border-line/40"
+>
   <div
     class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:items-center"
   >
@@ -43,3 +46,11 @@ const SPONSOR_URL = 'https://github.com/sponsors/syropian';
     </div>
   </div>
 </section>
+
+<style>
+  /* A soft top-lit band so self-host reads as its own surface between the
+     extension (canvas) and testimonials (rail) sections. */
+  .os-band {
+    background: radial-gradient(100% 120% at 50% 0%, var(--color-rail), var(--color-canvas) 70%);
+  }
+</style>
