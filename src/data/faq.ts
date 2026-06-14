@@ -6,7 +6,7 @@ export const faqs = [
   },
   {
     q: 'Is it open source? Can I self-host?',
-    a: 'Astral is MIT-licensed and lives on GitHub. Use the hosted app, or run your own instance with Docker, backed by SQLite or MySQL.',
+    a: 'Astral is AGPL-3.0-licensed and lives on GitHub. Use the hosted app, or run your own instance with Docker, backed by SQLite or MySQL.',
   },
   {
     q: 'What GitHub permissions does it need?',

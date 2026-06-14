@@ -35,7 +35,7 @@ export const features = [
     title: 'Free & open source',
     icon: 'lucide:github',
     blurb:
-      'Astral is free, MIT-licensed, and self-hostable. Use the hosted app or run your own. Your stars, your call.',
+      'Astral is free, AGPL-3.0-licensed, and self-hostable. Use the hosted app or run your own. Your stars, your call.',
   },
 ] as const;
 
