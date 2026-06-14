@@ -10,7 +10,7 @@ const panes = [
   {
     icon: 'lucide:list',
     name: 'The catalog',
-    desc: 'Every matching star sits in the middle with language chips and counts. Press / to search names, descriptions, and READMEs at once.',
+    desc: 'Every matching star sits in the middle with language chips and counts. Press / to search names, descriptions, and READMEs instantly.',
   },
   {
     icon: 'lucide:book-open-text',
@@ -20,26 +20,107 @@ const panes = [
 ];
 ---
 
-<section id="how-it-works" class="scroll-mt-24 border-y border-line/40 bg-rail">
-  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+<section
+  id="how-it-works"
+  class="border-line/40 bg-rail relative scroll-mt-24 overflow-hidden border-y"
+>
+  <div class="how-bg" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
     <div class="max-w-2xl">
-      <h2 class="text-3xl font-bold text-ink sm:text-4xl">A workstation, not a list</h2>
-      <p class="mt-4 text-lg text-body">
+      <h2 class="text-ink text-3xl font-bold sm:text-4xl">A workstation, not a list</h2>
+      <p class="text-body mt-4 text-lg">
         Astral is three panes that keep your hands on the keyboard and every star in view. The same
         layout, light or dark.
       </p>
     </div>
 
-    <div class="mt-14 grid gap-10 md:grid-cols-3">
+    <div class="how-grid relative mt-16 grid gap-10 md:grid-cols-3">
+      <div class="connector hidden md:block" aria-hidden="true"></div>
       {
         panes.map((p) => (
-          <div>
-            <Icon name={p.icon} class="size-6 text-brand-400" aria-hidden="true" />
-            <h3 class="mt-4 text-lg font-semibold text-ink">{p.name}</h3>
-            <p class="mt-2 text-body">{p.desc}</p>
+          <div class="flex flex-col items-center text-center">
+            <span class="node">
+              <Icon name={p.icon} class="text-brand-400 size-6" aria-hidden="true" />
+            </span>
+            <h3 class="text-ink mt-5 text-lg font-semibold">{p.name}</h3>
+            <p class="text-body mt-2 max-w-xs">{p.desc}</p>
           </div>
         ))
       }
     </div>
   </div>
 </section>
+
+<style>
+  .how-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  /* soft brand glow for depth */
+  .how-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        55% 45% at 50% -5%,
+        color-mix(in oklab, var(--color-brand-500) 16%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        45% 45% at 90% 112%,
+        color-mix(in oklab, var(--color-brand-700) 12%, transparent),
+        transparent 70%
+      );
+  }
+  /* faded star-chart dot grid */
+  .how-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--color-ink) 12%, transparent) 1px,
+      transparent 1.5px
+    );
+    background-size: 34px 34px;
+    opacity: 0.5;
+    -webkit-mask-image: radial-gradient(72% 60% at 50% 38%, #000, transparent 76%);
+    mask-image: radial-gradient(72% 60% at 50% 38%, #000, transparent 76%);
+  }
+
+  /* constellation line linking the three stations (desktop) */
+  .connector {
+    position: absolute;
+    top: 1.5rem;
+    left: 16.67%;
+    right: 16.67%;
+    height: 1px;
+    z-index: 0;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in oklab, var(--color-brand-500) 50%, transparent) 20%,
+      color-mix(in oklab, var(--color-brand-500) 50%, transparent) 80%,
+      transparent
+    );
+  }
+
+  .node {
+    position: relative;
+    z-index: 10;
+    display: inline-flex;
+    height: 3rem;
+    width: 3rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: var(--color-surface);
+    border: 1px solid color-mix(in oklab, var(--color-brand-500) 40%, var(--color-line));
+    box-shadow:
+      0 0 0 6px color-mix(in oklab, var(--color-brand-500) 7%, transparent),
+      0 0 22px color-mix(in oklab, var(--color-brand-500) 22%, transparent);
+  }
+</style>
