@@ -16,7 +16,7 @@
     "@fontsource/inter": "^5.2.8",
     "@fontsource/orbitron": "^5.2.8",
     "@tailwindcss/vite": "^4.3.1",
-    "astro": "^6.4.6",
+    "astro": "^7.0.7",
     "astro-icon": "^1.1.5",
     "tailwindcss": "^4.3.1"
   },
